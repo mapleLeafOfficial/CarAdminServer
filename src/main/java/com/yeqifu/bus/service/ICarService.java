@@ -1,6 +1,7 @@
 package com.yeqifu.bus.service;
 
 import com.yeqifu.bus.domain.Car;
+import com.yeqifu.bus.vo.CarTypeVo;
 import com.yeqifu.bus.vo.CarVo;
 import com.yeqifu.sys.utils.DataGridView;
 
@@ -49,4 +50,6 @@ public interface ICarService {
      * @param car
      */
     void updateCarCheck(Car car);
+
+    DataGridView getAllCartype(CarTypeVo carTypeVo);
 }

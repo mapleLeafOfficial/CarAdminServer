@@ -3,12 +3,15 @@ package com.yeqifu.bus.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yeqifu.bus.domain.Car;
+import com.yeqifu.bus.domain.CarType;
 import com.yeqifu.bus.mapper.CarMapper;
 import com.yeqifu.bus.service.ICarService;
+import com.yeqifu.bus.vo.CarTypeVo;
 import com.yeqifu.bus.vo.CarVo;
 import com.yeqifu.sys.constast.SysConstast;
 import com.yeqifu.sys.utils.AppFileUtils;
 import com.yeqifu.sys.utils.DataGridView;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,5 +89,12 @@ public class CarServiceImpl implements ICarService {
     @Override
     public void updateCarCheck(Car car) {
         this.carMapper.updateByPrimaryKeySelective(car);
+    }
+
+    @Override
+    public DataGridView getAllCartype(CarTypeVo carTypeVo) {
+        Page<Object> page = PageHelper.startPage(carTypeVo.getPage(),carTypeVo.getLimit());
+        List<CarType> allCartype = carMapper.getAllCartype(carTypeVo);
+        return new DataGridView(page.getTotal(),allCartype);
     }
 }

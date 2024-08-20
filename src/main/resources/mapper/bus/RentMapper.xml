@@ -138,7 +138,6 @@
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where rentid = #{rentid,jdbcType=VARCHAR}
   </update>
-
   <!--查询-->
   <select id="queryAllRent" resultMap="BaseResultMap">
     select
@@ -150,6 +149,9 @@
       </if>
       <if test="carnumber!=null and carnumber!=''">
         and carnumber like concat("%",#{carnumber},"%")
+      </if>
+      <if test="opername!=null and opername!=''">
+        and opername like concat("%",#{opername},"%")
       </if>
       <if test="identity!=null and identity!=''">
         and identity like concat("%",#{identity},"%")

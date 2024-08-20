@@ -144,7 +144,7 @@
         available = #{available,jdbcType=INTEGER},
       </if>
     </set>
-    where userid = #{userid,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER} OR loginname = #{loginname,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yeqifu.sys.domain.User">
     update sys_user

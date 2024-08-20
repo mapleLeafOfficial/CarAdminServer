@@ -13,6 +13,9 @@ import com.yeqifu.sys.utils.DataGridView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,15 @@ public class RentServiceImpl implements IRentService {
 
     @Override
     public void addRent(RentVo rentVo) {
+        if (rentVo!=null){
+            String decodedValue = "";
+            try {
+                 decodedValue = URLDecoder.decode(rentVo.getCarnumber(), StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+            rentVo.setCarnumber(decodedValue);
+        }
         this.rentMapper.insertSelective(rentVo);
         //更改车辆的出租状态
         Car car = new Car();
@@ -82,5 +94,4 @@ public class RentServiceImpl implements IRentService {
         rentVo.setRentflag(SysConstast.RENT_BACK_FALSE);
         this.rentMapper.updateByPrimaryKeySelective(rentVo);
     }
-
 }

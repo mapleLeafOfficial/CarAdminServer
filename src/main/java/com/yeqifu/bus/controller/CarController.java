@@ -1,7 +1,9 @@
 package com.yeqifu.bus.controller;
 
+import com.yeqifu.bus.constant.SysConstant;
 import com.yeqifu.bus.domain.Car;
 import com.yeqifu.bus.service.ICarService;
+import com.yeqifu.bus.vo.CarTypeVo;
 import com.yeqifu.bus.vo.CarVo;
 import com.yeqifu.sys.constast.SysConstast;
 import com.yeqifu.sys.utils.AppFileUtils;
@@ -11,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -30,6 +36,16 @@ public class CarController {
      */
     @RequestMapping("loadAllCar")
     public DataGridView loadAllCar(CarVo carVo){
+        String cartype = carVo.getCartype();
+        if (!cartype.equals("")){
+        try {
+            cartype = URLDecoder.decode(cartype, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        carVo.setCartype(cartype);
+        }
+
         return this.carService.queryAllCar(carVo);
     }
 
@@ -111,5 +127,18 @@ public class CarController {
             return ResultObj.DELETE_ERROR;
         }
     }
+    @RequestMapping("getAllCartype")
+    public DataGridView getAllCartype(CarTypeVo carTypeVo){
+        try{
+            return this.carService.getAllCartype(carTypeVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            DataGridView dataGridView = new DataGridView(new Object());
+            dataGridView.setCode(-1);
+            dataGridView.setMsg(SysConstant.SELECT_ERROR);
+            return dataGridView;
+        }
+    }
+
 
 }

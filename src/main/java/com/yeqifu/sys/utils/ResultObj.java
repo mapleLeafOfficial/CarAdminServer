@@ -7,6 +7,7 @@ import com.yeqifu.bus.constant.SysConstant;
  */
 public class ResultObj {
 
+    public static final ResultObj SELECT_ERROR = new ResultObj(SysConstant.CODE_ERROR, SysConstant.SELECT_ERROR);;
     private Integer code;
     private String msg;
 

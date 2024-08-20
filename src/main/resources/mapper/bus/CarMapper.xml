@@ -183,4 +183,13 @@
     </where>
     order by createtime desc
   </select>
+  <resultMap id="Bean" type="com.yeqifu.bus.domain.CarType">
+    <result column="cartype" jdbcType="VARCHAR" property="cartype" />
+    <result property="carCount" jdbcType="INTEGER" column="car_count"/>
+  </resultMap>
+  <select id="getAllCartype" resultMap="Bean">
+    SELECT cartype, COUNT(*) AS car_count
+    FROM bus_car
+    GROUP BY cartype
+  </select>
 </mapper>

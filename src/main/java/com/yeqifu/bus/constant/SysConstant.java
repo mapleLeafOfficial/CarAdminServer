@@ -75,4 +75,6 @@ public interface SysConstant {
      * 用户初始密码
      */
     String USER_DEFAULT_PWD="123456";
+    String SELECT_ERROR = "内部错误";
+
 }
